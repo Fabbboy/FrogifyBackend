@@ -5,10 +5,10 @@ import bson
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # get local machine name
-host = socket.gethostname()
+
 
 # bind the socket to a public host, and a port
-server_socket.bind((host, 2121))
+server_socket.bind(("localhost", 2121))
 
 # queue up to 5 requests
 server_socket.listen(5)
