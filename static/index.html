@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    //Send a post request to localhost:5555/auth/register
+    let username = "test";
+    let password = "test";
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:5555/auth/register", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let json = JSON.parse(xhr.responseText);
+            console.log(json);
+        }
+    };
+    let data = JSON.stringify({"username": username, "password": password});
+    xhr.send(data);
+
+</script>
+
+</body>
+</html>
