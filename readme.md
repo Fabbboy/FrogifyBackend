@@ -1,13 +1,15 @@
-<img src="assets/FrogifyLogo.png" alt="">
+<div style="text-align: center;">
+  <img src="assets/FrogifyLogo.png" alt="" style="max-width: 100%; height: auto;">
+</div>
 
 # FrogifyBackend
---
+
 Frogify is a Social Media platform i made as a School project in 9th grade. Goal is to bring School life, Information and the Social aspect all together in one place. 
 
 This is the Backend of the project. This involves the API and the Database.
 
 ## Endpoints:
-- `/auth/login`\
+- `/auth/login` 
 - `/auth/register`
 
 

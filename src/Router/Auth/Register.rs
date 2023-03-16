@@ -1,7 +1,7 @@
 #[allow(non_snake_case)]
 use std::time::SystemTime;
 
-use actix_web::{HttpResponse, post, Responder, web};
+use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
 use bson::{DateTime, doc as bson_doc};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
@@ -32,7 +32,8 @@ struct Response {
 
 #[post("/register")]
 pub(crate) async fn register(
-    data: web::Json<RegisterRequest>
+    data: web::Json<RegisterRequest>,
+    req: HttpRequest,
 ) -> impl Responder {
     if data.username.is_none() || data.usermail.is_none() || data.password.is_none() {
         return HttpResponse::BadRequest().json(json!({
@@ -95,6 +96,11 @@ pub(crate) async fn register(
         return HttpResponse::BadRequest().json(json!({
             "success": false,
             "message": "Password is too weak (min 8 chars, max 32, no spaces)",
+        }));
+    } else if client.doesMailUserExists(collection.clone(), usermail).await.unwrap() {
+        return HttpResponse::BadRequest().json(json!({
+            "success": false,
+            "message": "User already exist (usermail)",
         }));
     }else{
         result = collection.insert_one(doc, None).await

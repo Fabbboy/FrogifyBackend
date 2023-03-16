@@ -1,20 +1,14 @@
-#[allow(non_snake_case)]
-
 use actix_cors::Cors;
-
 use actix_web::{App, HttpServer, middleware, web};
 use actix_web::web::Data;
 use tokio::sync::Mutex;
-use std::time::Duration;
+
 use Router::Auth::{Login::login, Register::register};
 
 #[allow(non_snake_case)]
 mod Router;
 
-struct AppData {
-
-}
-
+struct AppData {}
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
@@ -38,10 +32,8 @@ async fn main() -> std::io::Result<()> {
                 .service(login))
             .wrap(cors) // Add CORS middleware to the app
             .wrap(middleware::Logger::default())
-
     })
         .bind("127.0.0.1:4499")?
         .run()
         .await
 }
-
