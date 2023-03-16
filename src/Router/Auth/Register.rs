@@ -1,14 +1,14 @@
-use std::{io::{self, BufRead, Write}, sync::Mutex, time::SystemTime};
-use std::net::TcpStream;
+#[allow(non_snake_case)]
+use std::time::SystemTime;
 
-use actix_web::{post, web, HttpRequest, HttpResponse, Responder};
-use bson::{doc as bson_doc, Bson, DateTime};
+use actix_web::{HttpResponse, post, Responder, web};
+use bson::{DateTime, doc as bson_doc};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
-use crate::{AppData, Router};
-use crate::Router::Database::MongoClient::Mongo;
-use crate::Router::Database::Checkers::{isMailValid, isPwdValid};
+use crate::Router;
+use crate::Router::Intern::Database::Checkers::{isMailValid, isPwdValid, isTeacher};
+use crate::Router::Intern::Database::MongoClient::Mongo;
 
 #[derive(Deserialize)]
 pub(crate) struct RegisterRequest {
@@ -19,17 +19,20 @@ pub(crate) struct RegisterRequest {
 
 #[derive(Serialize)]
 struct Response {
+    #[allow(non_snake_case)]
     userId: String,
+    #[allow(non_snake_case)]
     userToken: String,
+    #[allow(non_snake_case)]
     tokenExpire: SystemTime,
+    #[allow(non_snake_case)]
     currentTimestamp: SystemTime,
     success: bool,
 }
 
-#[post("/auth/register")]
+#[post("/register")]
 pub(crate) async fn register(
-    data: web::Json<RegisterRequest>,
-    req: HttpRequest,
+    data: web::Json<RegisterRequest>
 ) -> impl Responder {
     if data.username.is_none() || data.usermail.is_none() || data.password.is_none() {
         return HttpResponse::BadRequest().json(json!({
@@ -42,13 +45,19 @@ pub(crate) async fn register(
     let usermail = data.usermail.as_ref().unwrap();
     let password = data.password.as_ref().unwrap();
 
+    #[allow(non_snake_case)]
     let currentDateTime = SystemTime::now();
+    #[allow(non_snake_case)]
     let tokenExpire = currentDateTime + std::time::Duration::from_secs(2592000);
+    #[allow(non_snake_case)]
     let userId = Router::Hash::generateHashAdv(usermail.to_string(), currentDateTime);
+    #[allow(non_snake_case)]
     let userToken = Router::Hash::generateHashRandom(password.to_string());
 
     let client = Mongo::new().await.unwrap();
-    let collection = client.open_collection("Frogify", "Users").await.unwrap();
+    let collection = client.openCollection("Frogify", "Users").await.unwrap();
+
+    let role = if isTeacher(usermail) { "teacher" } else { "student" };
 
     let doc = bson_doc! {
         "userId": userId.clone(),
@@ -58,10 +67,11 @@ pub(crate) async fn register(
         "usermail": usermail.clone(),
         "password": password.clone(),
         "currentTimestamp": DateTime::from(currentDateTime),
+        "role": role,
     };
     let result;
     //let result = collection.insert_one(doc, None).await;
-    if client.does_user_exists(collection.clone(), usermail, username).await.unwrap() {
+    if client.doesUserExists(collection.clone(), usermail, username).await.unwrap() {
         return HttpResponse::BadRequest().json(json!({
             "success": false,
             "message": "User already exists (username or usermail)",
@@ -89,18 +99,19 @@ pub(crate) async fn register(
     }else{
         result = collection.insert_one(doc, None).await
     }
-    let errorMsg = match result {
+    #[allow(non_snake_case)]
+    return match result {
         Ok(_) => {
-            return HttpResponse::Ok().json(Response {
-                userId: userId,
-                userToken: userToken,
-                tokenExpire: tokenExpire,
+            HttpResponse::Ok().json(Response {
+                userId,
+                userToken,
+                tokenExpire,
                 currentTimestamp: currentDateTime,
                 success: true,
             })
         }
         Err(e) => {
-            return HttpResponse::InternalServerError().json(json!({
+            HttpResponse::InternalServerError().json(json!({
                 "success": false,
                 "message": e.to_string(),
             }))
