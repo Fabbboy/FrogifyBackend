@@ -1,4 +1,5 @@
 #![allow(non_snake_case)]
+
 use std::time::SystemTime;
 
 use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
@@ -28,13 +29,9 @@ pub(crate) struct LoginRequest {
 pub(crate) struct LoginResponse {
     role: String,
     success: bool,
-    #[allow(non_snake_case)]
     userId: String,
-    #[allow(non_snake_case)]
     userToken: String,
-    #[allow(non_snake_case)]
     tokenExpire: SystemTime,
-    #[allow(non_snake_case)]
     currentTimestamp: SystemTime,
 }
 
@@ -43,7 +40,6 @@ pub(crate) async fn login(
     data: web::Json<LoginRequest>,
     req: HttpRequest,
 ) -> impl Responder {
-
     if data.usermail.is_none() || data.password.is_none() && data.method == LoginMethode::Default {
         return HttpResponse::BadRequest().json(json!({
             "success": false,
@@ -57,7 +53,6 @@ pub(crate) async fn login(
             "message": "Missing data for userToken login",
         }));
     }
-
 
 
     let client = Mongo::new().await.unwrap();
@@ -94,7 +89,7 @@ pub(crate) async fn login(
                 "message": "Password is not correct",
             }));
         }
-            let Newtoken;
+        let Newtoken;
         //if token is expired generate new token
         if client.isTokenExpired(collection.clone(), data.usermail.as_ref().unwrap()).await.unwrap() {
             Newtoken = Router::Hash::generateHashRandom(data.password.as_ref().unwrap().to_string());
@@ -133,12 +128,9 @@ pub(crate) async fn login(
         }
 
         let role = client.getRole(collection.clone(), data.usermail.as_ref().unwrap()).await.unwrap();
-        #[allow(non_snake_case)]
-            let tokenFromDb = client.getToken(collection.clone(), data.usermail.as_ref().unwrap()).await.unwrap();
-        #[allow(non_snake_case)]
-            let tokenExpire = client.getTokenExpire(collection.clone(), data.usermail.as_ref().unwrap()).await.unwrap();
-        #[allow(non_snake_case)]
-            let userId = client.getUserId(collection.clone(), data.usermail.as_ref().unwrap()).await.unwrap();
+        let tokenFromDb = client.getToken(collection.clone(), data.usermail.as_ref().unwrap()).await.unwrap();
+        let tokenExpire = client.getTokenExpire(collection.clone(), data.usermail.as_ref().unwrap()).await.unwrap();
+        let userId = client.getUserId(collection.clone(), data.usermail.as_ref().unwrap()).await.unwrap();
 
         if tokenFromDb != data.userToken.clone().unwrap() {
             return HttpResponse::BadRequest().json(json!({
