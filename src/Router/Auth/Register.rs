@@ -1,4 +1,4 @@
-#[allow(non_snake_case)]
+#![allow(non_snake_case)]
 use std::time::SystemTime;
 
 use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
@@ -46,13 +46,9 @@ pub(crate) async fn register(
     let usermail = data.usermail.as_ref().unwrap();
     let password = data.password.as_ref().unwrap();
 
-    #[allow(non_snake_case)]
     let currentDateTime = SystemTime::now();
-    #[allow(non_snake_case)]
     let tokenExpire = currentDateTime + std::time::Duration::from_secs(2592000);
-    #[allow(non_snake_case)]
     let userId = Router::Hash::generateHashAdv(usermail.to_string(), currentDateTime);
-    #[allow(non_snake_case)]
     let userToken = Router::Hash::generateHashRandom(password.to_string());
 
     let client = Mongo::new().await.unwrap();
@@ -71,7 +67,6 @@ pub(crate) async fn register(
         "role": role,
     };
     let result;
-    //let result = collection.insert_one(doc, None).await;
     if client.doesUserExists(collection.clone(), usermail, username).await.unwrap() {
         return HttpResponse::BadRequest().json(json!({
             "success": false,
@@ -105,7 +100,6 @@ pub(crate) async fn register(
     }else{
         result = collection.insert_one(doc, None).await
     }
-    #[allow(non_snake_case)]
     return match result {
         Ok(_) => {
             HttpResponse::Ok().json(Response {

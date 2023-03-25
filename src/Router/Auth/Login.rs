@@ -1,4 +1,4 @@
-#[allow(non_snake_case)]
+#![allow(non_snake_case)]
 use std::time::SystemTime;
 
 use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
@@ -94,7 +94,6 @@ pub(crate) async fn login(
                 "message": "Password is not correct",
             }));
         }
-        #[allow(non_snake_case)]
             let Newtoken;
         //if token is expired generate new token
         if client.isTokenExpired(collection.clone(), data.usermail.as_ref().unwrap()).await.unwrap() {
@@ -167,4 +166,4 @@ pub(crate) async fn login(
         return HttpResponse::Ok().json(response);
     }
 }
-
+//TODO: Posts

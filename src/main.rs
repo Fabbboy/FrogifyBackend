@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 use actix_cors::Cors;
 use actix_web::{App, HttpServer, middleware, web};
 use actix_web::web::Data;
@@ -5,7 +6,7 @@ use tokio::sync::Mutex;
 
 use Router::Auth::{Login::login, Register::register};
 
-#[allow(non_snake_case)]
+
 mod Router;
 
 struct AppData {}

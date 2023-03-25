@@ -1,5 +1,5 @@
-#[allow(non_snake_case)]
-
+#![allow(non_snake_case)]
+#![allow(dead_code)]
 use std::error::Error;
 use std::time::SystemTime;
 
@@ -18,7 +18,7 @@ impl Mongo {
         Ok(Self { client })
     }
 
-    #[allow(non_snake_case)]
+
     pub(crate) async fn openCollection(
         &self,
         database: &str,
@@ -29,7 +29,6 @@ impl Mongo {
         Ok(coll)
     }
 
-    #[allow(non_snake_case)]
     pub(crate) async fn doesUserExists(
         &self,
         collection: Collection<Document>,
@@ -42,7 +41,6 @@ impl Mongo {
         Ok(result.is_some())
     }
 
-    #[allow(non_snake_case)]
     pub(crate) async fn doesMailUserExists(
         &self,
         collection: Collection<Document>,
@@ -52,7 +50,6 @@ impl Mongo {
         Ok(result.is_some())
     }
 
-    #[allow(non_snake_case)]
     pub(crate) async fn getRole(
         &self,
         collection: Collection<Document>,
@@ -65,9 +62,6 @@ impl Mongo {
         Ok(role_string)
     }
 
-
-
-    #[allow(non_snake_case)]
     pub(crate) async fn checkPwd(
         &self,
         collection: Collection<Document>,
@@ -80,7 +74,6 @@ impl Mongo {
         Ok(pwd == password)
     }
 
-    #[allow(non_snake_case)]
     pub(crate) async fn isTokenExpired(
         &self,
         collection: Collection<Document>,
@@ -94,7 +87,6 @@ impl Mongo {
         Ok(tokenExpire < &now)
     }
 
-    #[allow(non_snake_case)]
     pub(crate) async fn updateToken(
         &self,
         collection: Collection<Document>,
@@ -112,8 +104,6 @@ impl Mongo {
         Ok(())
     }
 
-    #[allow(dead_code)]
-    #[allow(non_snake_case)]
     pub(crate) async fn updatePwd(
         &self,
         collection: Collection<Document>,
@@ -130,7 +120,6 @@ impl Mongo {
         Ok(())
     }
 
-    #[allow(non_snake_case)]
     pub(crate) async fn getTokenExpire(
         &self,
         collection: Collection<Document>,
@@ -143,7 +132,6 @@ impl Mongo {
         Ok(tokenExpire.clone())
     }
 
-    #[allow(non_snake_case)]
     pub(crate) async fn getUserId(
         &self,
         collection: Collection<Document>,
@@ -156,7 +144,6 @@ impl Mongo {
         Ok(userId.to_string())
     }
 
-    #[allow(non_snake_case)]
     pub(crate) async fn getToken(
         &self,
         collection: Collection<Document>,

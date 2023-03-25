@@ -1,6 +1,6 @@
+#![allow(non_snake_case)]
 use regex::Regex;
 
-#[allow(non_snake_case)]
 pub(crate) fn isPwdValid(pwd: &String) -> bool {
     if pwd.len() < 8 {
         return false;
@@ -23,7 +23,7 @@ pub(crate) fn isPwdValid(pwd: &String) -> bool {
 
     true
 }
-#[allow(non_snake_case)]
+
 pub(crate) fn isMailValid(mail: &String) -> bool {
     let re = Regex::new(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$").unwrap();
     if ! re.is_match(& mail) {
@@ -39,7 +39,6 @@ pub(crate) fn isMailValid(mail: &String) -> bool {
     true
 }
 
-#[allow(non_snake_case)]
 pub(crate) fn isTeacher(email: &str) -> bool {
     if let Some(first_two) = email.get(..2) {
         if first_two == "et" {
