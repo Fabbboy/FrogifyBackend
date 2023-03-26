@@ -158,6 +158,21 @@ impl Mongo {
         Ok(user_token.to_string())
     }
 
+    pub(crate) async fn checkPasswordFromId(
+        &self,
+        collection: Collection<Document>,
+        password: &str,
+        user_id: &str,
+    ) -> Result<bool, Box<dyn Error>> {
+        // Try to get the user and check if the password of THIS user is like the one provided
+        let result = collection.find_one(doc! { "userId": user_id }, None).await?;
+        if let Some(document) = result {
+            if let Some(pwd) = document.get("password") {
+                return Ok(pwd.as_str().unwrap_or("") == password);
+            }
+        }
+        Ok(false)
+    }
 
 }
 

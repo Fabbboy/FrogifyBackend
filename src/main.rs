@@ -1,4 +1,5 @@
 #![allow(non_snake_case)]
+
 use actix_cors::Cors;
 use actix_web::{App, HttpServer, middleware, web};
 use actix_web::web::Data;
@@ -6,6 +7,8 @@ use tokio::sync::Mutex;
 
 use Router::Auth::{Login::login, Register::register};
 
+use crate::Router::Account::ChangePassword::changePassword;
+use crate::Router::Account::ChangeUsername::changeUsername;
 
 mod Router;
 
@@ -31,6 +34,9 @@ async fn main() -> std::io::Result<()> {
             .service(web::scope("/auth")
                 .service(register)
                 .service(login))
+            .service(web::scope("/user")
+                .service(changePassword)
+                .service(changeUsername))
             .wrap(cors) // Add CORS middleware to the app
             .wrap(middleware::Logger::default())
     })
