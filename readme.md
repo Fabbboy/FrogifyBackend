@@ -11,6 +11,10 @@ This is the Backend of the project. This involves the API and the Database.
 ## Endpoints:
 - `/auth/login` 
 - `/auth/register`
+- `/user/chngpwd`
+- `/user/chngusrn`
+- `/user/getacc`
+- `/user/delacc`
 
 
 ## Features
@@ -18,6 +22,11 @@ This is the Backend of the project. This involves the API and the Database.
     - Login
     - Register
     - Token login
+2. User:
+    - change password
+    - change username
+    - get informations
+    - delete account (posts also must be deleted but not implemented yet)
 
 ## Future Features
 1. Auth:
