@@ -101,6 +101,7 @@ pub(crate) async fn createPost(
         "postImageUrl": postImageUrl,
         "postDate": bson_doc! {"$date": datetime.to_rfc3339()},
         "userId": userId.clone(),
+        "likes": 0,
     };
 
     // Insert post document into Posts collection
