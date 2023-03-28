@@ -11,6 +11,7 @@ use crate::Router::Account::ChangePassword::changePassword;
 use crate::Router::Account::ChangeUsername::changeUsername;
 use crate::Router::Account::DeleteAccount::deleteAccount;
 use crate::Router::Account::GetAccount::getAccount;
+use crate::Router::Post::CreatePost::createPost;
 
 mod Router;
 
@@ -40,8 +41,9 @@ async fn main() -> std::io::Result<()> {
                 .service(changePassword)
                 .service(changeUsername)
                 .service(deleteAccount)
-                .service(getAccount)
-            )
+                .service(getAccount))
+            .service(web::scope("/post")
+                         .service(createPost))
             .wrap(cors) // Add CORS middleware to the app
             .wrap(middleware::Logger::default())
     })

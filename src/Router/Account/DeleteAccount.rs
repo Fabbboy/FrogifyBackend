@@ -1,12 +1,15 @@
 #![allow(non_snake_case)]
-use std::time::SystemTime;
 
+use std::time::SystemTime;
+use bson::Bson::Document;
 use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
-use bson::{DateTime, doc as bson_doc};
+use bson::{Bson, DateTime, doc as bson_doc};
+use bson::document::{ValueAccessError, ValueAccessResult};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
 use crate::Router;
+use crate::Router::FirebaseAccessPoint::deleteImage;
 use crate::Router::Intern::Database::Checkers::{isMailValid, isPwdValid, isTeacher};
 use crate::Router::Intern::Database::MongoClient::Mongo;
 
@@ -70,16 +73,35 @@ pub(crate) async fn deleteAccount(
         }));
     }
 
-    //delete user
-    collection.delete_one(bson_doc! {
-        "userId": userId,
+
+    let postCol = client.openCollection("Frogify", "Posts").await.unwrap();
+
+    let posts = user.get_array("posts").unwrap();
+
+    for post_id in posts.iter().filter_map(|p| p.as_str()) {
+        // Delete the post with the given ID
+        let post_filter = bson_doc! {
+        "postId": post_id,
+    };
+        let post_doc_opt = postCol.find_one(bson_doc! {
+        "postId": post_id,
     }, None).await.unwrap();
 
-    //TODO delete all posts and comments
+        if let Some(post_doc) = post_doc_opt {
+            let url = post_doc.get_str("postImageUrl").unwrap();
+            deleteImage(url).await.unwrap();
+            postCol.delete_one(post_filter, None).await.unwrap();
+        }
+    }
+
+
+
+    collection.delete_one(bson_doc! {
+    "userId": userId,
+}, None).await.unwrap();
 
     HttpResponse::Ok().json(json!({
-        "success": true,
-        "message": "Account deleted",
-    }))
+    "success": true,
+    "message": "Account deleted",
+}))
 }
-//TODO: delete all posts
