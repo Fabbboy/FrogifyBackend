@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
 use std::time::SystemTime;
 
-use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
+use actix_web::{HttpResponse, post, Responder, web};
 use bson::{DateTime, doc as bson_doc};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
@@ -33,7 +33,6 @@ struct Response {
 #[post("/register")]
 pub(crate) async fn register(
     data: web::Json<RegisterRequest>,
-    req: HttpRequest,
 ) -> impl Responder {
     if data.username.is_none() || data.usermail.is_none() || data.password.is_none() {
         return HttpResponse::BadRequest().json(json!({

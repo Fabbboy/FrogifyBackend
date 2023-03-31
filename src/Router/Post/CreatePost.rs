@@ -1,14 +1,13 @@
 use std::time::SystemTime;
 
-use actix_web::{error, HttpRequest, HttpResponse, post, Responder, web};
+use actix_web::{HttpResponse, post, Responder, web};
 use bson::{doc as bson_doc};
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize};
 use serde_json::json;
 use chrono::{DateTime, Utc};
 
 
 use crate::Router;
-use crate::Router::Intern::Database::Checkers::{isMailValid, isPwdValid, isTeacher};
 use crate::Router::Intern::Database::MongoClient::Mongo;
 
 #[derive(Deserialize)]
@@ -21,7 +20,6 @@ pub(crate) struct CreatePostRequest {
 
 #[post("/createpost")]
 pub(crate) async fn createPost(
-    req: HttpRequest,
     data: web::Json<CreatePostRequest>,
 ) -> Result<impl Responder, actix_web::Error> {
     let userId = data.userId.clone();

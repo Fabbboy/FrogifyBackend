@@ -1,13 +1,12 @@
-use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
-use bson::{doc as bson_doc};
+#![allow(deprecated)]
+use actix_web::{HttpResponse, post, Responder, web};
 use chrono::{DateTime, FixedOffset, Utc};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use futures_util::stream::StreamExt;
 
-use crate::Router::FirebaseAccessPoint::deleteImage;
 use crate::Router::Intern::Database::MongoClient::Mongo;
-use crate::Router::Post::GetPost::{GetPostResponse, GetPost};
+use crate::Router::Post::GetPost::{GetPostResponse};
 
 #[derive(Deserialize)]
 pub(crate) struct GetAllPostsRequest {
@@ -22,7 +21,6 @@ pub(crate) struct GetAllPostsResponse {
 
 #[post("/getallposts")]
 pub(crate) async fn getAllPosts(
-    req: HttpRequest,
     data: web::Json<GetAllPostsRequest>,
 ) -> Result<impl Responder, actix_web::Error> {
     let mongo_client = Mongo::new().await.unwrap();

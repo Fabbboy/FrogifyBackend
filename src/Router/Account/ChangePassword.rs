@@ -2,13 +2,13 @@
 
 use std::time::SystemTime;
 
-use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
+use actix_web::{HttpResponse, post, Responder, web};
 use bson::{DateTime, doc as bson_doc};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
 use crate::Router;
-use crate::Router::Intern::Database::Checkers::{isMailValid, isPwdValid, isTeacher};
+use crate::Router::Intern::Database::Checkers::{isPwdValid};
 use crate::Router::Intern::Database::MongoClient::Mongo;
 
 #[derive(Deserialize)]
@@ -28,7 +28,6 @@ pub(crate) struct ChangePasswordResponse {
 #[post("/chngpwd")]
 pub(crate) async fn changePassword(
     data: web::Json<ChangePasswordRequest>,
-    req: HttpRequest,
 ) -> impl Responder {
     if data.userId.is_none() || data.oldPassword.is_none() || data.newPassword.is_none() {
         return HttpResponse::BadRequest().json(json!({
@@ -63,8 +62,6 @@ pub(crate) async fn changePassword(
             "message": "User does not exist",
         }));
     }
-
-    let user = user.unwrap();
 
     //check if old password is correct
     let collection_clone = collection.clone();

@@ -1,34 +1,29 @@
 #![allow(non_snake_case)]
 
-use std::time::SystemTime;
-use bson::Bson::Document;
-use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
-use bson::{Bson, DateTime, doc as bson_doc};
-use bson::document::{ValueAccessError, ValueAccessResult};
+use actix_web::{HttpResponse, post, Responder, web};
+use bson::{doc as bson_doc};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
-use crate::Router;
 use crate::Router::FirebaseAccessPoint::deleteImage;
-use crate::Router::Intern::Database::Checkers::{isMailValid, isPwdValid, isTeacher};
+use crate::Router::Intern::Database::Checkers::{isPwdValid};
 use crate::Router::Intern::Database::MongoClient::Mongo;
 
 #[derive(Deserialize)]
-pub(crate) struct deleteAccountRequest {
+pub(crate) struct DeleteAccountRequest {
     userId: Option<String>,
     password: Option<String>,
 }
 
 #[derive(Serialize)]
-pub(crate) struct deleteAccountResponse {
+pub(crate) struct DeleteAccountResponse {
     success: bool,
     message: String,
 }
 
 #[post("/delacc")]
 pub(crate) async fn deleteAccount(
-    data: web::Json<deleteAccountRequest>,
-    req: HttpRequest,
+    data: web::Json<DeleteAccountRequest>,
 ) -> impl Responder {
     if data.userId.is_none() || data.password.is_none() {
         return HttpResponse::BadRequest().json(json!({

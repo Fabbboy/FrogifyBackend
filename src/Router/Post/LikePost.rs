@@ -1,9 +1,8 @@
-use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
+use actix_web::{HttpResponse, post, Responder, web};
 use bson::{doc as bson_doc, doc};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
-use crate::Router::FirebaseAccessPoint::deleteImage;
 use crate::Router::Intern::Database::MongoClient::Mongo;
 
 #[derive(Deserialize)]
@@ -20,7 +19,6 @@ pub(crate) struct LikePostResponse {
 
 #[post("/likepost")]
 pub(crate) async fn likePost(
-    req: HttpRequest,
     data: web::Json<LikePost>,
 ) -> Result<impl Responder, actix_web::Error> {
     if data.postId.is_none() || data.userId.is_none() {

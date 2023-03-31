@@ -1,13 +1,10 @@
 #![allow(non_snake_case)]
-use std::time::SystemTime;
 
-use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
-use bson::{DateTime, doc as bson_doc};
+use actix_web::{HttpResponse, post, Responder, web};
+use bson::{doc as bson_doc};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
-use crate::Router;
-use crate::Router::Intern::Database::Checkers::{isMailValid, isPwdValid, isTeacher};
 use crate::Router::Intern::Database::MongoClient::Mongo;
 
 #[derive(Deserialize)]
@@ -27,7 +24,6 @@ pub(crate) struct GetAccountResponse {
 #[post("/getacc")]
 pub(crate) async fn getAccount(
     data: web::Json<GetAccountRequest>,
-    req: HttpRequest,
 ) -> impl Responder {
     if data.userId.is_none() {
         return HttpResponse::BadRequest().json(json!({

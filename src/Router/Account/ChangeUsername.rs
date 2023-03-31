@@ -1,14 +1,11 @@
 #![allow(non_snake_case)]
 
-use std::time::SystemTime;
 
-use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
-use bson::{DateTime, doc as bson_doc};
+use actix_web::{HttpResponse, post, Responder, web};
+use bson::{doc as bson_doc};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
-use crate::Router;
-use crate::Router::Intern::Database::Checkers::{isMailValid, isPwdValid, isTeacher};
 use crate::Router::Intern::Database::MongoClient::Mongo;
 
 #[derive(Deserialize)]
@@ -27,7 +24,6 @@ pub(crate) struct ChangeUsernameResponse {
 #[post("/chngusrn")]
 pub(crate) async fn changeUsername(
     data: web::Json<ChangeUsernameRequest>,
-    req: HttpRequest,
 ) -> impl Responder {
     if data.userId.is_none() || data.newUsername.is_none() || data.password.is_none() {
         return HttpResponse::BadRequest().json(json!({
@@ -56,7 +52,6 @@ pub(crate) async fn changeUsername(
         }));
     }
 
-    let user = user.unwrap();
 
     let collection_clone = collection.clone();
     if !client.checkPasswordFromId(collection_clone, password, userId).await.unwrap() {

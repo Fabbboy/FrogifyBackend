@@ -1,6 +1,5 @@
-use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
+use actix_web::{HttpResponse, post, Responder, web};
 use bson::{doc as bson_doc};
-use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
@@ -21,7 +20,6 @@ pub(crate) struct DeletePostResponse {
 
 #[post("/deletepost")]
 pub(crate) async fn deletePost(
-    req: HttpRequest,
     data: web::Json<DeletePostRequest>,
 ) -> Result<impl Responder, actix_web::Error> {
     if data.userId.is_none() || data.postId.is_none() {

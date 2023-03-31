@@ -1,10 +1,10 @@
-use actix_web::{HttpRequest, HttpResponse, post, Responder, web};
+#![allow(deprecated)]
+use actix_web::{HttpResponse, post, Responder, web};
 use bson::{doc as bson_doc};
 use chrono::{DateTime, FixedOffset, Utc};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
-use crate::Router::FirebaseAccessPoint::deleteImage;
 use crate::Router::Intern::Database::MongoClient::Mongo;
 
 #[derive(Deserialize)]
@@ -26,7 +26,6 @@ pub(crate) struct GetPostResponse {
 
 #[post("/getpost")]
 pub(crate) async fn getPost(
-    req: HttpRequest,
     data: web::Json<GetPost>,
 ) -> Result<impl Responder, actix_web::Error> {
     if data.postId.is_none() {
