@@ -15,6 +15,12 @@ This is the Backend of the project. This involves the API and the Database.
 - `/user/chngusrn`
 - `/user/getacc`
 - `/user/delacc`
+- `/post/createpost`
+- `/post/deletepost`
+- `/post/likepost`
+- `/post/getpost`
+- `/post/unlikepost`
+- `/post/getallposts`
 
 
 ## Features
@@ -22,27 +28,28 @@ This is the Backend of the project. This involves the API and the Database.
     - Login
     - Register
     - Token login
+   - Password reset
 2. User:
     - change password
     - change username
     - get informations
-    - delete account (posts also must be deleted but not implemented yet)
+    - delete account
+3. Post:
+   - Create
+   - Delete
+   - Like
 
 ## Future Features
 1. Auth:
-    - Password reset
     - Email verification
     - 2FA
 2. Posts:
-    - Create
-    - Delete
-    - Edit
-    - Like
     - Comment
     - Share
-3. User:
-    - Profile
-    - Settings
+
+## Known vulnerabilities
+- Login as admin 
+- Delete posts of other users
 
 ## Tools
 To build the project you need to have the following installed:
