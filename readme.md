@@ -27,6 +27,9 @@ This is the Backend of the project. This involves the API and the Database.
     - change username
     - get informations
     - delete account (posts also must be deleted but not implemented yet)
+3. Post:
+   - Create
+   - Delete
 
 ## Future Features
 1. Auth:
@@ -34,8 +37,6 @@ This is the Backend of the project. This involves the API and the Database.
     - Email verification
     - 2FA
 2. Posts:
-    - Create
-    - Delete
     - Edit
     - Like
     - Comment
@@ -43,6 +44,10 @@ This is the Backend of the project. This involves the API and the Database.
 3. User:
     - Profile
     - Settings
+
+## Known vulnerabilities
+- Login as admin 
+- Delete posts of other users
 
 ## Tools
 To build the project you need to have the following installed:

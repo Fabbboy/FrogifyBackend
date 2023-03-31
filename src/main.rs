@@ -15,6 +15,7 @@ use crate::Router::Post::CreatePost::createPost;
 use crate::Router::Post::DeletePost::deletePost;
 use crate::Router::Post::GetPost::getPost;
 use crate::Router::Post::LikePost::likePost;
+use crate::Router::Post::UnlikePost::unlikePost;
 
 mod Router;
 
@@ -50,6 +51,7 @@ async fn main() -> std::io::Result<()> {
                 .service(deletePost)
                 .service(getPost)
                 .service(likePost)
+                .service(unlikePost)
             )
 
             .wrap(cors) // Add CORS middleware to the app
