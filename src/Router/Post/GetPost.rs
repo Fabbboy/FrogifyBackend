@@ -14,13 +14,14 @@ pub(crate) struct GetPost {
 
 #[derive(Serialize)]
 pub(crate) struct GetPostResponse {
-    success: bool,
-    postTitle: String,
-    postContent: String,
-    postImageUrl: String,
-    post_date: String,
-    userId: String,
-    likes: i32,
+    pub(crate) success: bool,
+    pub(crate) postId: String,
+    pub(crate) postTitle: String,
+    pub(crate) postContent: String,
+    pub(crate) postImageUrl: String,
+    pub(crate) post_date: String,
+    pub(crate) userId: String,
+    pub(crate) likes: i32,
 }
 
 #[post("/getpost")]
@@ -74,8 +75,11 @@ pub(crate) async fn getPost(
     let post_date = post_date.with_timezone(&FixedOffset::east(0));
     let post_date = post_date.format("%Y-%m-%d %H:%M:%S").to_string();
 
+    let postId = postId.to_string();
+
     let response = GetPostResponse {
         success: true,
+        postId,
         postTitle: postTitle.to_string(),
         postContent: postContent.to_string(),
         postImageUrl: postImageUrl.to_string(),
