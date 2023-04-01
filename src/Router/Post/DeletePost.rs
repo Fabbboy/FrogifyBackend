@@ -88,7 +88,7 @@ pub(crate) async fn deletePost(
         let user_doc_opt = user_collection.find_one(user_filter, None).await.unwrap();
 
         if let Some(user_doc) = user_doc_opt {
-            let mut user_posts = user_doc.get_array("posts").unwrap();
+            let user_posts = user_doc.get_array("posts").unwrap();
             let mut user_posts_vec = Vec::new();
 
             for post in user_posts {
