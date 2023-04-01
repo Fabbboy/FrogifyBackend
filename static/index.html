@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -13,7 +12,7 @@
     <label for="post-content">Post Content:</label>
     <textarea id="post-content" name="postContent" required></textarea><br>
     <label for="post-image">Post Image:</label>
-    <input type="file" id="post-image" name="postImage" required><br>
+    <input type="file" id="post-image" name="postImage"><br>
     <button type="submit">Create Post</button>
 </form>
 
@@ -39,7 +38,6 @@
 
     };
 
-
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
@@ -50,19 +48,21 @@
         const userId = document.querySelector('#user-id').value;
         const postTitle = document.querySelector('#post-title').value;
         const postContent = document.querySelector('#post-content').value;
+        let postImageUrl = '';
         const postImage = document.querySelector('#post-image').files[0];
-
-        // Upload the image to Firebase Storage
-        const storageRef = firebase.storage().ref();
-        const imageRef = storageRef.child(postImage.name);
-        const snapshot = await imageRef.put(postImage);
-        const imageUrl = await snapshot.ref.getDownloadURL();
+        if (postImage) {
+            // Upload the image to Firebase Storage
+            const storageRef = firebase.storage().ref();
+            const imageRef = storageRef.child(postImage.name);
+            const snapshot = await imageRef.put(postImage);
+            postImageUrl = await snapshot.ref.getDownloadURL();
+        }
 
         const data = {
             userId,
             postTitle,
             postContent,
-            postImageUrl: imageUrl,
+            postImageUrl,
         };
 
         const response = await fetch('http://localhost:4499/post/createpost', {

@@ -80,6 +80,45 @@ pub(crate) async fn deletePost(
             })));
         }
 
+        // get the user that posted the post
+        let user_filter = bson_doc! {
+            "userId": userId.clone(),
+        };
+
+        let user_doc_opt = user_collection.find_one(user_filter, None).await.unwrap();
+
+        if let Some(user_doc) = user_doc_opt {
+            let mut user_posts = user_doc.get_array("posts").unwrap();
+            let mut user_posts_vec = Vec::new();
+
+            for post in user_posts {
+                user_posts_vec.push(post.as_str().unwrap().to_string());
+            }
+
+            user_posts_vec.retain(|x| x != &postId);
+
+            let update_res = user_collection.update_one(
+                bson_doc! {
+                    "userId": userId.clone(),
+                },
+                bson_doc! {
+                    "$set": {
+                        "posts": user_posts_vec,
+                    }
+                },
+                None,
+            ).await;
+
+            if update_res.is_err() {
+                return Ok(HttpResponse::BadRequest().json(json!({
+                    "success": false,
+                    "message": "Error while updating user posts",
+                })));
+            }
+        }
+
+
+
         return Ok(HttpResponse::Ok().json(json!({
             "success": true,
             "message": "Post deleted",

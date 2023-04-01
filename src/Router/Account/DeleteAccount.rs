@@ -73,6 +73,7 @@ pub(crate) async fn deleteAccount(
 
     let posts = user.get_array("posts").unwrap();
 
+
     for post_id in posts.iter().filter_map(|p| p.as_str()) {
         // Delete the post with the given ID
         let post_filter = bson_doc! {

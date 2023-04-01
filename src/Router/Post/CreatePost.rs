@@ -15,7 +15,7 @@ pub(crate) struct CreatePostRequest {
     userId: String,
     postTitle: String,
     postContent: String,
-    postImageUrl: String,
+    postImageUrl: Option<String>,
 }
 
 #[post("/createpost")]
@@ -25,7 +25,7 @@ pub(crate) async fn createPost(
     let userId = data.userId.clone();
     let postTitle = data.postTitle.clone();
     let postContent = data.postContent.clone();
-    let postImageUrl = data.postImageUrl.clone();
+    let postImageUrl = data.postImageUrl.clone().unwrap_or_else(|| "".to_string());
 
     let mongo_client = Mongo::new().await.unwrap();
     let user_collection = mongo_client.openCollection("Frogify", "Users").await.unwrap();
