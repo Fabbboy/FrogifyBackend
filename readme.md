@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-  <img src="assets/FrogifyLogo.png" alt="" style="max-width: 100%; height: auto;">
+  <img src="assets/FrogifyLogo.jpg" alt="" style="max-width: 100%; height: auto;">
 </div>
 
 # FrogifyBackend
