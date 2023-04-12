@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clickable Links Example</title>
+  <style>
+    a {
+      color: blue;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<h1>This is a #hashtag and a link to Google: https://www.google.com</h1>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var text = document.querySelector("h1").innerHTML;
+    var replacedText = text.replace(/#(\w+)/g, '<a href="https://www.example.com/search?q=$1">#$1</a>');
+    document.querySelector("h1").innerHTML = replacedText;
+  });
+</script>
+</body>
+</html>

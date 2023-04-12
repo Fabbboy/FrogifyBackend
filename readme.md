@@ -46,6 +46,7 @@ This is the Backend of the project. This involves the API and the Database.
 2. Posts:
     - Comment
     - Share
+3. Profile pictures https://www.dicebear.com
 
 ## Known vulnerabilities
 - Login as admin 

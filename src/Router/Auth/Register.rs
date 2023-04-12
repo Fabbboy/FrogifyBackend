@@ -55,6 +55,8 @@ pub(crate) async fn register(
 
     let role = if isTeacher(usermail) { "teacher" } else { "student" };
 
+    let pbImage = Router::FirebaseAccessPoint::generateProfilePicture(usermail).await.unwrap();
+
     let doc = bson_doc! {
         "userId": userId.clone(),
         "userToken": userToken.clone(),
@@ -63,6 +65,7 @@ pub(crate) async fn register(
         "usermail": usermail.clone(),
         "password": password.clone(),
         "currentTimestamp": DateTime::from(currentDateTime),
+        "profilePicture": pbImage,
         "role": role,
     };
     let result;

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Profile Picture Generator</title>
+</head>
+<body>
+<div class="parent">
+    <div class="container">
+        <div class="form-container">
+            <form id="form">
+                <label for="color">Background color:</label><input id="color" name="color" type="color"
+                                                                   value="#000000"/>
+                <label for="clothsColor">Clothing color</label><input id="clothsColor" name="color" type="color"
+                                                                      value="#000000"/>
+                <label for="eyeColor">Eye color</label><input id="eyeColor" name="color" type="color" value="#000000"/>
+                <label for="hairColor">Hair color</label><input id="hairColor" name="color" type="color"
+                                                                value="#000000"/>
+                <label for="skinColor">Skin color</label><input id="skinColor" name="color" type="color"
+                                                                value="#000000"/>
+                <label for="hair">Hair</label><select id="hair" name="hair">
+                <option value="long01">long01</option>
+                <option value="long02">long02</option>
+                <option value="long03">long03</option>
+                <option value="long04">long04</option>
+                <option value="long05">long05</option>
+                <option value="long06">long06</option>
+                <option value="long07">long07</option>
+                <option value="long08">long08</option>
+                <option value="long09">long09</option>
+                <option value="long10">long10</option>
+                <option value="long11">long11</option>
+                <option value="long12">long12</option>
+                <option value="long13">long13</option>
+                <option value="long14">long14</option>
+                <option value="long15">long15</option>
+                <option value="long16">long16</option>
+                <option value="long17">long17</option>
+                <option value="long18">long18</option>
+                <option value="long19">long19</option>
+                <option value="long20">long20</option>
+                <option value="long21">long21</option>
+                <option value="short01">short01</option>
+                <option value="short02">short02</option>
+                <option value="short03">short03</option>
+                <option value="short04">short04</option>
+                <option value="short05">short05</option>
+                <option value="short06">short06</option>
+                <option value="short07">short07</option>
+                <option value="short08">short08</option>
+                <option value="short09">short09</option>
+                <option value="short10">short10</option>
+                <option value="short11">short11</option>
+                <option value="short12">short12</option>
+                <option value="short13">short13</option>
+                <option value="short14">short14</option>
+                <option value="short15">short15</option>
+                <option value="short16">short16</option>
+                <option value="short17">short17</option>
+                <option value="short18">short18</option>
+                <option value="short19">short19</option>
+                <option value="short20">short20</option>
+                <option value="short21">short21</option>
+                <option value="short22">short22</option>
+                <option value="short23">short23</option>
+                <option value="short24">short24</option>
+            </select>
+
+                <label for="months">Mouth</label><select id="months" name="months">
+                <option value="happy01">happy01</option>
+                <option value="happy02">happy02</option>
+                <option value="happy03">happy03</option>
+                <option value="happy04">happy04</option>
+                <option value="happy05">happy05</option>
+                <option value="happy06">happy06</option>
+                <option value="happy07">happy07</option>
+                <option value="happy08">happy08</option>
+                <option value="happy09">happy09</option>
+                <option value="happy10">happy10</option>
+                <option value="happy11">happy11</option>
+                <option value="happy12">happy12</option>
+                <option value="happy13">happy13</option>
+                <option value="sad01">sad01</option>
+                <option value="sad02">sad02</option>
+                <option value="sad03">sad03</option>
+                <option value="sad04">sad04</option>
+                <option value="sad05">sad05</option>
+                <option value="sad06">sad06</option>
+                <option value="sad07">sad07</option>
+                <option value="sad08">sad08</option>
+                <option value="sad09">sad09</option>
+                <option value="sad10">sad10</option>
+            </select>
+
+
+                <input type="submit" value="Generate"/>
+                <button id="copy-btn" type="button">Copy URL</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="image-container">
+    <img alt="avatar" src=""/>
+</div>
+<style>
+  .parent {
+    display: flex;
+    flex-direction: row;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  .form-container {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 20px;
+    max-height: 500px; /* Change to your desired size */
+  }
+
+  .image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    margin-bottom: 20px;
+  }
+
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    font-family: "Helvetica", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  input[type="submit"] {
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-family: "Helvetica", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #005fa3;
+  }
+
+  @media screen and (max-width: 800px) {
+    .parent {
+      flex-direction: column;
+    }
+    .form-container,
+    .image-container {
+      width: 100%;
+    }
+    .form-container {
+      padding-right: 0;
+      padding-bottom: 20px;
+    }
+  }
+
+</style>
+<script>
+    const form = document.querySelector('#form');
+    const img = document.querySelector('img');
+
+    const baseUrl = "https://api.dicebear.com/6.x/pixel-art/svg";
+    const baseScale = 120;
+    const baseSize = 128;
+
+    //define all cloths types variant01-variant23
+    const cloths = [
+        "variant01",
+        "variant02",
+        "variant03",
+        "variant04",
+        "variant05",
+        "variant06",
+        "variant07",
+        "variant08",
+        "variant09",
+        "variant10",
+        "variant11",
+        "variant12",
+        "variant13",
+        "variant14",
+        "variant15",
+        "variant16",
+        "variant17",
+        "variant18",
+        "variant19",
+        "variant20",
+        "variant21",
+        "variant22",
+        "variant23"
+    ];
+
+
+    //listen for form submit
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const bGcolor = document.querySelector('#color').value.slice(1);
+        const clothsColor = document.querySelector('#clothsColor').value.slice(1);
+        const eyeColor = document.querySelector('#eyeColor').value.slice(1);
+        const hair = document.querySelector('#hair').value;
+        const hairColor = document.querySelector('#hairColor').value.slice(1);
+        const months = document.querySelector('#months').value;
+        const skinColor = document.querySelector('#skinColor').value.slice(1);
+
+        const randomCloths = cloths[Math.floor(Math.random() * cloths.length)];
+        const url = `${baseUrl}?size=${baseSize}&scale=${baseScale}&backgroundColor=transparent&randomizeIds=true&clothingColor=${clothsColor}&clothing=${randomCloths}&eyes=variant06&eyesColor=${eyeColor}&hair=${hair}&hairColor=${hairColor}&mouth=${months}&skinColor=${skinColor}`;
+        console.log(url)
+        img.src = url;
+
+
+    });
+
+    const copyBtn = document.querySelector('#copy-btn');
+
+    copyBtn.addEventListener('click', () => {
+        const url = img.src;
+        navigator.clipboard.writeText(url).then(() => {
+            console.log('URL copied to clipboard!');
+        });
+    });
+
+
+</script>
+</body>
+</html>
