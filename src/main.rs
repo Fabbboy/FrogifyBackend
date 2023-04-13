@@ -11,6 +11,7 @@ use crate::Router::Account::ChangePassword::changePassword;
 use crate::Router::Account::ChangeUsername::changeUsername;
 use crate::Router::Account::DeleteAccount::deleteAccount;
 use crate::Router::Account::GetAccount::getAccount;
+use crate::Router::Account::GetTotalLikes::getTotalLikes;
 use crate::Router::Infos::PrattelnPosts::getNews;
 use crate::Router::Infos::Weather::weather;
 use crate::Router::Infos::Echo::respEcho;
@@ -50,6 +51,7 @@ async fn main() -> std::io::Result<()> {
                 .service(changeUsername)
                 .service(deleteAccount)
                 .service(getAccount)
+                .service(getTotalLikes)
             )
             .service(web::scope("/post")
                 .service(createPost)
