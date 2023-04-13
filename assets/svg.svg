@@ -1,0 +1,19 @@
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 106.6 106.6" enable-background="new 0 0 106.6 106.6" xml:space="preserve">
+<polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="53.3,5.7   37.4,21.5 69.2,21.6 21.5,70 21.5,37.4 85.1,37.5 53.3,69.2 85.1,69.2 69.2,85.1 37.5,85.1 53.4,101 "/>
+<circle fill="#B14191" cx="53.3" cy="5.7" r="5.7"/>
+<circle fill="#BCCF00" cx="69.2" cy="21.6" r="5.7"/>
+<circle fill="#F39200" cx="85.1" cy="37.5" r="5.7"/>
+<circle fill="#E5005B" cx="101" cy="53.4" r="5.7"/>
+<circle fill="#F39200" cx="37.4" cy="21.5" r="5.7"/>
+<circle fill="#E5005B" cx="53.3" cy="37.4" r="5.7"/>
+<circle fill="#B14191" cx="69.2" cy="53.3" r="5.7"/>
+<circle fill="#009FE3" cx="85.1" cy="69.2" r="5.7"/>
+<circle fill="#009FE3" cx="21.5" cy="37.4" r="5.7"/>
+<circle fill="#BCCF00" cx="37.4" cy="53.3" r="5.7"/>
+<circle fill="#E5005B" cx="53.3" cy="69.2" r="5.7"/>
+<circle fill="#F39200" cx="69.2" cy="85.1" r="5.7"/>
+<circle fill="#B14191" cx="5.7" cy="53.3" r="5.7"/>
+<circle fill="#F39200" cx="21.6" cy="69.2" r="5.7"/>
+<circle fill="#BCCF00" cx="37.5" cy="85.1" r="5.7"/>
+<circle fill="#009FE3" cx="53.4" cy="101" r="5.7"/>
+</svg>
