@@ -21,6 +21,9 @@ This is the Backend of the project. This involves the API and the Database.
 - `/post/getpost`
 - `/post/unlikepost`
 - `/post/getallposts`
+- `/info/weather`
+- `/info/news`
+- `/info/echo` (not really an echo more like a ping)
 
 
 ## Features
@@ -32,7 +35,7 @@ This is the Backend of the project. This involves the API and the Database.
 2. User:
     - change password
     - change username
-    - get informations
+    - get information's
     - delete account
 3. Post:
    - Create

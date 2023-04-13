@@ -1,6 +1,5 @@
 #![allow(non_snake_case)]
 
-use std::error::Error;
 use actix_cors::Cors;
 use actix_web::{App, HttpServer, middleware, web};
 use actix_web::web::Data;
@@ -12,9 +11,9 @@ use crate::Router::Account::ChangePassword::changePassword;
 use crate::Router::Account::ChangeUsername::changeUsername;
 use crate::Router::Account::DeleteAccount::deleteAccount;
 use crate::Router::Account::GetAccount::getAccount;
-use crate::Router::FromApis::{NewsItem, scrape_pratteln_website};
 use crate::Router::Infos::PrattelnPosts::getNews;
 use crate::Router::Infos::Weather::weather;
+use crate::Router::Infos::Echo::respEcho;
 use crate::Router::Post::CreatePost::createPost;
 use crate::Router::Post::DeletePost::deletePost;
 use crate::Router::Post::GetAllPosts::getAllPosts;
@@ -63,6 +62,7 @@ async fn main() -> std::io::Result<()> {
             .service(web::scope("/info")
                 .service(weather)
                 .service(getNews)
+                .service(respEcho)
             )
             .wrap(cors) // Add CORS middleware to the app
             .wrap(middleware::Logger::default())

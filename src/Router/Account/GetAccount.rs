@@ -19,7 +19,7 @@ pub(crate) struct GetAccountResponse {
     usermail: String,
     role: String,
     profilePictureUrl: String,
-    //postIds: Vec<String>,
+    postIds: Vec<String>,
 }
 
 #[post("/getacc")]
@@ -52,7 +52,7 @@ pub(crate) async fn getAccount(
     let username = user.get_str("username").unwrap();
     let usermail = user.get_str("usermail").unwrap();
     let teacher = user.get_str("role").unwrap();
-    //let postIds = user.get_array("postIds").unwrap();
+    let postIds = user.get_array("posts").unwrap();
     let profilePictureUrl = user.get_str("profilePicture").unwrap();
 
     HttpResponse::Ok().json(json!({
@@ -61,7 +61,7 @@ pub(crate) async fn getAccount(
         "usermail": usermail,
         "role": teacher,
         "profilePictureUrl": profilePictureUrl,
-        //"postIds": postIds,
+        "postIds": postIds,
     }))
 
 }
