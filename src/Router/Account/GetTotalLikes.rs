@@ -8,7 +8,7 @@ use serde_json::json;
 use crate::Router::Intern::Database::MongoClient::Mongo;
 
 #[derive(Deserialize)]
-pub(crate) struct GetTotalLikes{
+pub(crate) struct GetTotalLikes {
     userId: Option<String>,
 }
 
@@ -17,6 +17,7 @@ pub(crate) struct GetTotalLikesResponse {
     success: bool,
     message: String,
     totalLikes: i32,
+    averageLikes: f32,
 }
 
 #[post("/totallikes")]
@@ -62,39 +63,37 @@ pub(crate) async fn getTotalLikes(
         let post = post_collection
             .find_one(
                 bson_doc! {
-                    "postId": postId.as_str().unwrap(),
-                },
+            "postId": postId.as_str().unwrap(),
+        },
                 None,
             )
             .await.unwrap();
 
         if post.is_none() {
             return Ok(HttpResponse::BadRequest().json(json!({
-                "success": false,
-                "message": "Post does not exist",
-            })));
+        "success": false,
+        "message": "Post does not exist",
+    })));
         }
 
         let post = post.unwrap();
+        let empty_vec = Vec::new(); // Create an empty vector outside the match expression
         let likes = match post.get_array("likedBy") {
             Ok(likes_array) => likes_array,
             Err(_) => {
-                return Ok(HttpResponse::InternalServerError().json(json!({
-            "success": false,
-            "message": "An error occurred while retrieving the likes array",
-        })));
+                &empty_vec // Return a reference to the empty vector if no array was found
             }
         };
-
 
         totalLikes += likes.len() as i32;
     }
 
     Ok(HttpResponse::Ok().json(json!({
-        "success": true,
-        "message": "Total likes",
-        "totalLikes": totalLikes,
+    "success": true,
+    "message": "Total likes",
+    "totalLikes": totalLikes,
+    "averageLikes": ((totalLikes as f32) / (postIds.len() as f32) * 1000.0).round() / 1000.0,
     })))
+
 }
-
-
+//TODO: change profile

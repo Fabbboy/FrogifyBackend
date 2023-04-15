@@ -8,6 +8,7 @@ use tokio::sync::Mutex;
 use Router::Auth::{Login::login, Register::register};
 
 use crate::Router::Account::ChangePassword::changePassword;
+use crate::Router::Account::ChangeProfilePicture::changePP;
 use crate::Router::Account::ChangeUsername::changeUsername;
 use crate::Router::Account::DeleteAccount::deleteAccount;
 use crate::Router::Account::GetAccount::getAccount;
@@ -52,6 +53,7 @@ async fn main() -> std::io::Result<()> {
                 .service(deleteAccount)
                 .service(getAccount)
                 .service(getTotalLikes)
+                .service(changePP)
             )
             .service(web::scope("/post")
                 .service(createPost)

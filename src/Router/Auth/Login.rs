@@ -157,4 +157,3 @@ pub(crate) async fn login(
         return HttpResponse::Ok().json(response);
     }
 }
-//TODO: Posts

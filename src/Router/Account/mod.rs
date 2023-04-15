@@ -5,3 +5,4 @@ pub(crate) mod ChangeUsername;
 pub(crate) mod DeleteAccount;
 pub(crate) mod GetAccount;
 pub(crate) mod GetTotalLikes;
+pub(crate) mod ChangeProfilePicture;
