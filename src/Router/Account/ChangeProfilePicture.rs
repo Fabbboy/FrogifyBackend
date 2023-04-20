@@ -48,8 +48,6 @@ pub(crate) async fn changePP(
         }));
     }
 
-    let user = user.unwrap();
-    //try changing profile picture
 
     let result = collection.clone().update_one(bson_doc! {
         "userId": userId,

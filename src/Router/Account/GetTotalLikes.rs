@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
 
 use actix_web::{HttpResponse, post, Responder, web};
-use bson::{Array, doc as bson_doc};
+use bson::{ doc as bson_doc};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
@@ -96,4 +96,3 @@ pub(crate) async fn getTotalLikes(
     })))
 
 }
-//TODO: change profile

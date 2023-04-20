@@ -22,7 +22,7 @@ pub(crate) struct GetAccountResponse {
     postIds: Vec<String>,
     postStreak: i32,
 }
-use chrono::{DateTime, Utc};
+use chrono::{DateTime};
 
 async fn calculatePostStreak(postIds: Vec<String>) -> i32 {
     let mut streak = 0;
@@ -91,7 +91,8 @@ pub(crate) async fn getAccount(
     let username = user.get_str("username").unwrap();
     let usermail = user.get_str("usermail").unwrap();
     let teacher = user.get_str("role").unwrap();
-    let postIds = user.get_array("posts").unwrap();
+    let tempVec = vec![];
+    let postIds = user.get_array("posts").unwrap_or(&tempVec);
     let profilePictureUrl = user.get_str("profilePicture").unwrap();
 
     HttpResponse::Ok().json(json!({
